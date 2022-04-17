@@ -1,10 +1,11 @@
-import './App.css';
+import Register from "./components/Register";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <div className="App">
-     <p>Hello</p>
-    </div>
+    <AuthProvider>
+      <Register />
+    </AuthProvider>
   );
 }
 
