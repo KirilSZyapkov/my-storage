@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../firebase';
+import { useAuth } from '../context/AuthContext';
 
 function Login() {
+
+    const { currentUser } = useAuth();
+    console.log(currentUser);
     return (
         <div className="container-form">
             <form>
@@ -22,8 +25,11 @@ function Login() {
                     <button type="submit">Login</button>
 
                 </div>
+                <div className="register-link">
+                    <p>If you don't have an account <Link to={'/register'}>Register</Link></p>
+                </div>
 
-                <div className="forgot-password" style={{ background_color: "#f1f1f1" }}>
+                <div className="forgot-password">
                     <span className="psw">Forgot <a href="#">password?</a></span>
                 </div>
             </form>

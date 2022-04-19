@@ -21,7 +21,7 @@ body{
 .wrapper-register {
   padding: 16px;
   background-color: white;
-  border: 1px solid #333;
+  /* border: 1px solid #333; */
 }
 
 input[type=text], input[type=password] {
@@ -63,7 +63,7 @@ a {
 }
 
 .signin {
-  background-color: #f1f1f1;
+  
   text-align: center;
 }
 
@@ -107,7 +107,8 @@ button:hover {
   padding: 16px;
 }
 
-.forgot-password{
+.forgot-password,
+.register-link{
   display: flex;
   flex-grow: 1;
   justify-content: center;
