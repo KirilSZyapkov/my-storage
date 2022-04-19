@@ -24,7 +24,7 @@ function Login() {
             setError(errorHandler(err));
             setLoaing(false);
         }
-        alert(email + ' + ' + password);
+        
     }
 
     return (
