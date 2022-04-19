@@ -23,7 +23,7 @@ function Register() {
                 throw new Error('Passwords don`t match!');
             }
 
-            await register(email, password);
+            await register(email.trim(), password.trim());
             setLoaing(false);
             navigation('/');
 
