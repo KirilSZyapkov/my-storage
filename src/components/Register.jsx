@@ -1,26 +1,62 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import errorHandler from '../services/errorHandler';
 
 function Register() {
+    const [error, setError] = useState(null);
+    const [loading, setLoaing] = useState(false);
+    const { register } = useAuth();
+    const navigation = useNavigate();
+
+    async function handlerSubmit(e) {
+        e.preventDefault();
+        setLoaing(true);
+        const target = e.target;
+        const email = target.email.value;
+        const password = target.password.value;
+        const rePass = target.rePass.value;
+
+
+        try {
+            if (password !== rePass) {
+                throw new Error('Passwords don`t match!');
+            }
+
+            await register(email, password);
+            setLoaing(false);
+            navigation('/');
+
+        } catch (err) {
+           
+            setError(errorHandler(err));
+            setLoaing(false);
+        }
+    }
+
+
     return (
-        <div className="container-register">
-            <form>
+        <div className="container-form">
+            <form onSubmit={handlerSubmit}>
                 <div className="wrapper-register">
                     <h1>Register</h1>
+                    {error && <div className='register-error-container'>
+                        <h1 className='register-error-message'>{error}</h1>
+                    </div>}
                     <p>Please fill in this form to create an account.</p>
                     <hr />
 
-                    <label for="email"><b>Email</b></label>
+                    <label htmlFor="email"><b>Email</b></label>
                     <input type="text" placeholder="Enter Email" name="email" id="email" required />
 
-                    <label for="password"><b>Password</b></label>
+                    <label htmlFor="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="password" id="password" required />
 
-                    <label for="rePass"><b>Repeat Password</b></label>
+                    <label htmlFor="rePass"><b>Repeat Password</b></label>
                     <input type="password" placeholder="Repeat Password" name="rePass" id="rePass" required />
                     <hr />
 
-                    <button type="submit" className="registerbtn">Register</button>
+                    <button disabled={loading} type="submit" className="registerbtn">Register</button>
                 </div>
 
                 <div className="container signin">

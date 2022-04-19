@@ -10,17 +10,17 @@ export function useAuth() {
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
 
-    function register(email, password) {
-        return auth.createUserWithEmailAndPassword(email, password);
+    async function register(email, password) {
+        return await auth.createUserWithEmailAndPassword(email, password);
     }
 
-    function login(email, password) {
-        return auth.createUserWithEmailAndPassword(email, password);
-    }
+    // function login(email, password) {
+    //     return auth.createUserWithEmailAndPassword(email, password);
+    // }
 
-    function logout() {
-        return auth.createUserWithEmailAndPassword(email, password);
-    }
+    // function logout() {
+    //     return auth.createUserWithEmailAndPassword(email, password);
+    // }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
@@ -31,16 +31,18 @@ export function AuthProvider({ children }) {
 
     }, [])
 
+    console.log(currentUser);
+
 
     const value = {
         currentUser,
         register,
-        login,
-        logout
+        // login,
+        // logout
     }
 
     return (
-        <AuthContext.Provider valuse={value}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     )
