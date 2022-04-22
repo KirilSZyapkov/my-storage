@@ -1,10 +1,10 @@
-import { useAuth } from '../context/AuthContext';
-import { Navigate, Outlet } from 'react-router-dom';
+// import { useAuth } from '../context/AuthContext';
+// import { Navigate, Outlet } from 'react-router-dom';
 
-const { currentUser } = useAuth();
+// const { currentUser } = useAuth();
 
-function UserGuard() {
-    return currentUser.uid ? <Navigate to={'/'} /> : <Outlet />
-}
+// function UserGuard() {
+//     return currentUser.uid ? <Navigate to={'/'} /> : <Outlet />
+// }
 
-export default UserGuard;
+// export default UserGuard;

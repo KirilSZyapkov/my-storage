@@ -89,7 +89,7 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
-button {
+.login-button {
   background-color: dodgerblue;
   color: white;
   padding: 14px 20px;
@@ -97,10 +97,6 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
-}
-
-button:hover {
-  opacity: 0.8;
 }
 
 .wrapper-login {
@@ -136,4 +132,53 @@ button:hover {
 
 .storage{
   margin-left: 13px;
+}
+
+.breadcrumb-container{
+  width: 100%;
+  
+}
+
+.home-page-breadcrumb{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+}
+
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+.breadcrumb-buttons{
+  display: flex;
+}
+
+.breadcrumb-buttons-file,
+.breadcrumb-buttons-folder{
+ background-color: white;
+ border: 1px solid green;
+ cursor: pointer;
+ margin: 0;
+ width: 100px;
+ height: 41px;
+ margin-right: 10px;
 }

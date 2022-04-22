@@ -10,6 +10,7 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
+        
         <Route exect path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

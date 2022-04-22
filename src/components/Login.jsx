@@ -43,7 +43,7 @@ function Login() {
                     <label htmlFor="password"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="password" required />
                     < hr />
-                    <button disabled={loading} type="submit">Login</button>
+                    <button className='login-button' disabled={loading} type="submit">Login</button>
 
                 </div>
                 <div className="register-link">
