@@ -5,7 +5,7 @@ function Breadcrumbs({
     folderId
 }) {
     return (
-        <li className="breadcrumb-li"><Link to={'/'}>{"Home"}</Link></li>
+        <li className="breadcrumb-li"><span className='span-li'>/</span><Link to={'/'}>{"Home"}</Link></li>
     );
 }
 

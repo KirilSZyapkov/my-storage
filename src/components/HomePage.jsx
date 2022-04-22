@@ -1,13 +1,25 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FcFolder } from "react-icons/fc";
 import { FcFile } from "react-icons/fc";
 import Breadcrumbs from "./Breadcrumbs";
+import { db } from "../firebase";
 
 function HomePage() {
 
     const { logout } = useAuth();
+
+
+    async function createFolder() {
+
+    }
+
+    async function loadFile() {
+
+    }
+
+
     return (
         <>
             <div className="home-page-topnav">
@@ -22,11 +34,31 @@ function HomePage() {
                     </ul>
                 </div>
                 <div className="breadcrumb-buttons">
-                    <button className="breadcrumb-buttons-file"><FcFile /></button>
-                    <button className="breadcrumb-buttons-folder"><FcFolder /></button>
+                    <button onClick={loadFile} className="breadcrumb-buttons-file"><FcFile /></button>
+                    <button onClick={createFolder} className="breadcrumb-buttons-folder"><FcFolder /></button>
                 </div>
             </div>
             <hr />
+            <div className="item-container">
+                <div className="folder-container">
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+                    <div className="home-page-icons" ><FcFolder />New Folder</div>
+
+                </div>
+                <div className="file-container">
+                    <div className="home-page-icons"><FcFile />New File</div>
+
+                </div>
+            </div>
         </>
     )
 }

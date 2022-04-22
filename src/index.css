@@ -155,17 +155,16 @@ ul.breadcrumb {
   list-style: none;
 }
 
-.breadcrumb-li{
+.breadcrumb-li {
   display: inline;
   font-size: 18px;
-  border: 1px solid red;
-   max-width: 50px;
+
+  max-width: 50px;
 }
 
-.breadcrumb-li+.breadcrumb-li:before {
+.span-li {
   padding: 8px;
   color: black;
-  content: "/\00a0";
 }
 
 .breadcrumb-li a {
@@ -185,11 +184,38 @@ ul.breadcrumb {
 .breadcrumb-buttons-file,
 .breadcrumb-buttons-folder {
   background-color: white;
-  border: 1px solid green;
+  border: 1px solid dodgerblue;
   cursor: pointer;
   margin: 0;
   padding: 10px;
   margin-right: 10px;
   font-size: 25px;
   border-radius: 5px;
+}
+
+.item-container{
+  border: 1px solid red;
+  padding: 15px;
+}
+
+.home-page-icons {
+  border: 1px solid dodgerblue;
+  padding: 11px;
+  border-radius: 5px;
+  width: 130px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.file-container{
+  margin-top: 12px;
+}
+
+.folder-container,
+.file-container{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
