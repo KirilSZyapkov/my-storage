@@ -1,5 +1,9 @@
-import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { FcFolder } from "react-icons/fc";
+import { FcFile } from "react-icons/fc";
+import Breadcrumbs from "./Breadcrumbs";
 
 function HomePage() {
 
@@ -13,17 +17,16 @@ function HomePage() {
             <div className="home-page-breadcrumb">
                 <div className="breadcrumb-container">
                     <ul className="breadcrumb">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Pictures</a></li>
-                        <li><a href="#">Summer 15</a></li>
+                        <li className="breadcrumb-li"><Link to={'/'}>Root</Link></li>
+                        <Breadcrumbs text={"New Folderfsdihfidsfhiadshfidshfisd"} />
                     </ul>
                 </div>
                 <div className="breadcrumb-buttons">
-                    <button className="breadcrumb-buttons-file">New File</button>
-                    <button className="breadcrumb-buttons-folder">New Folder</button>
+                    <button className="breadcrumb-buttons-file"><FcFile /></button>
+                    <button className="breadcrumb-buttons-folder"><FcFolder /></button>
                 </div>
             </div>
-            <hr/>
+            <hr />
         </>
     )
 }

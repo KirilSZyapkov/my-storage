@@ -2,14 +2,16 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   margin: 0;
   padding: 0;
 }
 
-form {border: 3px solid #f1f1f1;}
+form {
+  border: 3px solid #f1f1f1;
+}
 
-.container-form{
+.container-form {
   width: 500px;
   margin: auto;
   display: flex;
@@ -26,7 +28,8 @@ form {border: 3px solid #f1f1f1;}
   /* border: 1px solid #333; */
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
@@ -35,7 +38,8 @@ input[type=text], input[type=password] {
   background: #f1f1f1;
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus,
+input[type=password]:focus {
   background-color: #ddd;
   outline: none;
 }
@@ -65,22 +69,23 @@ a {
 }
 
 .signin {
-  
+
   text-align: center;
 }
 
-.register-error-container{
+.register-error-container {
   background-color: lightcoral;
 }
 
-.register-error-message{
+.register-error-message {
   padding: 10px;
   margin: 10px;
 }
 
 /* Login */
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -104,7 +109,7 @@ input[type=text], input[type=password] {
 }
 
 .forgot-password,
-.register-link{
+.register-link {
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -112,7 +117,7 @@ input[type=text], input[type=password] {
 
 /* Home Page */
 
-.home-page-topnav{
+.home-page-topnav {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,25 +126,25 @@ input[type=text], input[type=password] {
   height: 50px;
 }
 
-.home-page-logo{
+.home-page-logo {
   margin-left: 50px;
 }
 
-.home-page-topnav-logout-button{
+.home-page-topnav-logout-button {
   margin-right: 100px;
   cursor: pointer;
 }
 
-.storage{
+.storage {
   margin-left: 13px;
 }
 
-.breadcrumb-container{
+.breadcrumb-container {
   width: 100%;
-  
+
 }
 
-.home-page-breadcrumb{
+.home-page-breadcrumb {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -150,35 +155,41 @@ ul.breadcrumb {
   list-style: none;
 }
 
-ul.breadcrumb li {
+.breadcrumb-li{
   display: inline;
   font-size: 18px;
+  border: 1px solid red;
+   max-width: 50px;
 }
-ul.breadcrumb li+li:before {
+
+.breadcrumb-li+.breadcrumb-li:before {
   padding: 8px;
   color: black;
   content: "/\00a0";
 }
-ul.breadcrumb li a {
+
+.breadcrumb-li a {
   color: #0275d8;
   text-decoration: none;
 }
-ul.breadcrumb li a:hover {
+
+.breadcrumb-li a:hover {
   color: #01447e;
   text-decoration: underline;
 }
 
-.breadcrumb-buttons{
+.breadcrumb-buttons {
   display: flex;
 }
 
 .breadcrumb-buttons-file,
-.breadcrumb-buttons-folder{
- background-color: white;
- border: 1px solid green;
- cursor: pointer;
- margin: 0;
- width: 100px;
- height: 41px;
- margin-right: 10px;
+.breadcrumb-buttons-folder {
+  background-color: white;
+  border: 1px solid green;
+  cursor: pointer;
+  margin: 0;
+  padding: 10px;
+  margin-right: 10px;
+  font-size: 25px;
+  border-radius: 5px;
 }
