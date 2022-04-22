@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FcFolder } from "react-icons/fc";
 import { FcFile } from "react-icons/fc";
+import ItemList from "./ItemList";
 import Breadcrumbs from "./Breadcrumbs";
 import { db } from "../firebase";
 
@@ -39,26 +40,7 @@ function HomePage() {
                 </div>
             </div>
             <hr />
-            <div className="item-container">
-                <div className="folder-container">
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-                    <div className="home-page-icons" ><FcFolder />New Folder</div>
-
-                </div>
-                <div className="file-container">
-                    <div className="home-page-icons"><FcFile />New File</div>
-
-                </div>
-            </div>
+            <ItemList />
         </>
     )
 }

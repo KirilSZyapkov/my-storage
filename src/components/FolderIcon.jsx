@@ -1,8 +1,16 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
+import { FcFolder } from "react-icons/fc";
 
-function FolderIcon() {
+function FolderIcon({
+  folderName,
+  folderId
+}) {
   return (
-    <div>FolderIcon</div>
+    <div className="folder-container">
+
+      <div className="home-page-icons" ><FcFolder /><Link to={'/'}>New Folder</Link></div>
+    </div>
+
   )
 }
 
