@@ -12,6 +12,7 @@ function App() {
       <Routes>
         
         <Route exect path="/" element={<HomePage />} />
+        <Route path="/:id" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

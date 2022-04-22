@@ -11,6 +11,10 @@ form {
   border: 3px solid #f1f1f1;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container-form {
   width: 500px;
   margin: auto;
@@ -62,10 +66,6 @@ hr {
 
 .registerbtn:hover {
   opacity: 1;
-}
-
-a {
-  color: dodgerblue;
 }
 
 .signin {
@@ -194,7 +194,6 @@ ul.breadcrumb {
 }
 
 .item-container{
-  border: 1px solid red;
   padding: 15px;
 }
 
@@ -207,6 +206,11 @@ ul.breadcrumb {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+ 
+}
+
+.home-page-icons a{
+  color: dodgerblue;
 }
 
 .file-container{
@@ -218,4 +222,55 @@ ul.breadcrumb {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  
+}
+
+/* Modal */
+
+.modal{
+  
+  position: fixed; 
+  z-index: 1;
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-form-label{
+  font-size: 20px;
+}
+
+.modal-form{
+  width: 400px;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  margin: auto;
+  background-color: lightgrey;
+}
+
+.modal-form-btn{
+  background-color: dodgerblue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  font-size: 17px;
+  border-radius: 10px;
+}
+
+.close{
+  background-color: gray;
+}
+
+.modal-btn-container{
+  display: flex;
+  justify-content: flex-end;
 }

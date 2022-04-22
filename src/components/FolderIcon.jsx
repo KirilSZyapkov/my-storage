@@ -8,7 +8,7 @@ function FolderIcon({
   return (
     <div className="folder-container">
 
-      <div className="home-page-icons" ><FcFolder /><Link to={'/'}>New Folder</Link></div>
+      <div className="home-page-icons" ><FcFolder /><Link to={'fodsfhoasdifhjosadi'}>New Folder</Link></div>
     </div>
 
   )
