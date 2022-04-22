@@ -51,7 +51,7 @@ function Login() {
                 </div>
 
                 <div className="forgot-password">
-                    <p>Forgot <a href="#">password?</a></p>
+                    <p>Forgot password?</p>
                 </div>
             </form>
         </div>
