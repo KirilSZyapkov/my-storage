@@ -10,11 +10,17 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        
-        <Route exect path="/" element={<HomePage />} />
-        <Route path="/:id" element={<HomePage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route element={<RoutGuard />}>
+          <Route exect path="/" element={<HomePage />} />
+          <Route path="/folder/:currentFolderId" element={<HomePage />} />
+        </Route>
+
+        <Route element={<UserGuard />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+
       </Routes>
     </AuthProvider>
   );

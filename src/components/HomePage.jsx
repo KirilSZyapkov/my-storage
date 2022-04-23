@@ -9,31 +9,39 @@ import { db } from "../firebase";
 
 function HomePage() {
     const [open, setOpen] = useState(false);
-    const [openFileModal, setOpenFileModal] = useState(false);
-    const { logout } = useAuth();
-    let { id } = useParams();
+    const { logout, currentUser } = useAuth();
+    let { currentFolderId } = useParams();
 
-    if (!id) {
-        id = null;
+    if (!currentFolderId) {
+        currentFolderId = null;
     }
 
-    console.log(id);
+    console.log(currentFolderId);
 
     function openModal() {
         setOpen(true);
-    }
+    };
     function closeModal() {
         setOpen(false);
-    }
+    };
 
     async function createFolder(e) {
         e.preventDefault();
-        alert('done');
-    }
+        const target = e.target;
+        const folderName = target.folderName.value.trim();
+        await db.folders.add({
+            folderName,
+            _owner: currentUser?.uid,
+            parentFolder: currentFolderId || '/',
+            children: [],
+            path:[]
+        })
+        closeModal();
+    };
 
     async function loadFile() {
 
-    }
+    };
 
 
     return (
@@ -73,7 +81,7 @@ function HomePage() {
 
             </div>}
         </>
-    )
-}
+    );
+};
 
-export default HomePage
+export default HomePage;
