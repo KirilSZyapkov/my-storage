@@ -9,6 +9,7 @@ import { db } from "../firebase";
 
 function HomePage() {
     const [open, setOpen] = useState(false);
+    const [openFileModal, setOpenFileModal] = useState(false);
     const { logout } = useAuth();
     let { id } = useParams();
 
@@ -25,7 +26,7 @@ function HomePage() {
         setOpen(false);
     }
 
-    async function createFolder(e){
+    async function createFolder(e) {
         e.preventDefault();
         alert('done');
     }
@@ -49,7 +50,11 @@ function HomePage() {
                     </ul>
                 </div>
                 <div className="breadcrumb-buttons">
-                    <button onClick={loadFile} className="breadcrumb-buttons-file"><FcFile /></button>
+                   
+                    <label className="breadcrumb-buttons-file">
+                        <FcFile />
+                        <input type="file" style={{ display: 'none' }} onChange={loadFile} />
+                    </label>
                     <button onClick={openModal} className="breadcrumb-buttons-folder"><FcFolder /></button>
                 </div>
             </div>
