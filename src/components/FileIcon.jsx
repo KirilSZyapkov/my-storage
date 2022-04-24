@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FcFile } from "react-icons/fc";
 
-function FileIcon({
-  fileName,
-  fileUrl
-}) {
+function FileIcon({ file }) {
   return (
     <div className="file-container">
 

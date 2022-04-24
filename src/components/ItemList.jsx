@@ -6,10 +6,21 @@ function ItemList({ data }) {
     return (
         <>
             <div className="item-container">
-                {data.map(f => <FolderIcon folder={f} />)}
-            </div>
-            <div className="item-container">
-                <FileIcon />
+                {data.map(f => {
+                    if (f.type === 'folder') {
+                        return (
+                            <div className="item-container">
+                                <FolderIcon key={f.id} folder={f} />
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <div className="item-container">
+                                <FileIcon key={f.id} file={f} />
+                            </div>
+                        )
+                    }
+                })}
             </div>
         </>
     )
