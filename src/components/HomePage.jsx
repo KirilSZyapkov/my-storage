@@ -10,30 +10,40 @@ import { db } from "../firebase";
 function HomePage() {
     const [data, setData] = useState([]);
     const [open, setOpen] = useState(false);
+    const [update, setUpdate] = useState(true);
     const { logout, currentUser } = useAuth();
     let { currentFolderId } = useParams();
 
     useEffect(() => {
         async function fetch() {
-            const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
-            const respons = fetch.docs.map(doc => {
-                const folder = {
-                    id: doc.id,
-                    ...doc.data()
-                }
-                return folder
-            })
 
-            setData(respons);
+            if (currentFolderId) {
+                const fetch = await db.folders.doc(currentFolderId).get();
+                const folder = {
+                    id: fetch.id,
+                    ...fetch.data()
+                }
+
+                setData(folder);
+            } else {
+                const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
+                const respons = fetch.docs.map(doc => {
+                    const folder = {
+                        id: doc.id,
+                        ...doc.data()
+                    }
+                    return folder
+                })
+
+                setData(respons);
+            }
         }
         fetch();
-    }, [currentFolderId]);
+    }, [currentFolderId, update]);
 
     console.log(data);
 
-    if (!currentFolderId) {
-        currentFolderId = null;
-    }
+
 
     console.log(currentFolderId);
 
@@ -56,6 +66,7 @@ function HomePage() {
             path: [],
             type: 'folder'
         })
+        setUpdate(!update);
         closeModal();
     };
 
