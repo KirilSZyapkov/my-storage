@@ -16,14 +16,20 @@ function HomePage() {
     useEffect(() => {
         async function fetch() {
             const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
-            console.log(fetch.docs);
-            // const respons = fetch.data();
-            // setData(respons);
+            const respons = fetch.docs.map(doc => {
+                const folder = {
+                    id: doc.id,
+                    ...doc.data()
+                }
+                return folder
+            })
+
+            setData(respons);
         }
         fetch();
     }, [currentFolderId]);
 
-    // console.log(data);
+    console.log(data);
 
     if (!currentFolderId) {
         currentFolderId = null;
@@ -47,7 +53,8 @@ function HomePage() {
             _owner: currentUser?.uid,
             parentFolder: currentFolderId || '/',
             children: [],
-            path: []
+            path: [],
+            type: 'folder'
         })
         closeModal();
     };
@@ -80,7 +87,7 @@ function HomePage() {
                 </div>
             </div>
             <hr />
-            <ItemList />
+            <ItemList data={data} />
             {open && <div className="modal">
                 <form onSubmit={createFolder} className="modal-form">
                     <label className="modal-form-label" htmlFor="folderName">Folder Name</label>

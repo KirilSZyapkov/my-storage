@@ -1,14 +1,10 @@
 import { Link } from 'react-router-dom';
 import { FcFolder } from "react-icons/fc";
 
-function FolderIcon({
-  folderName,
-  folderId
-}) {
+function FolderIcon({folder}) {
   return (
     <div className="folder-container">
-
-      <div className="home-page-icons" ><FcFolder /><Link to={'fodsfhoasdifhjosadi'}>New Folder</Link></div>
+      <div className="home-page-icons" ><FcFolder /><Link to={`/folder/${folder.id}`}>{folder.folderName}</Link></div>
     </div>
 
   )
