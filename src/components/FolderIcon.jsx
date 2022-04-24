@@ -4,7 +4,7 @@ import { FcFolder } from "react-icons/fc";
 function FolderIcon({folder}) {
   return (
     <div className="folder-container">
-      <div className="home-page-icons" ><FcFolder /><Link to={`/folder/${folder.id}`}>{folder.folderName}</Link></div>
+      <Link to={`/folder/${folder.id}`}><div className="home-page-icons" ><FcFolder />{folder.folderName}</div></Link>
     </div>
 
   )

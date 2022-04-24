@@ -15,7 +15,8 @@ const app = firebase.initializeApp({
 const firestore = app.firestore();
 export const db = {
     folders: firestore.collection('folders'),
-    files: firestore.collection('files')
+    files: firestore.collection('files'),
+    getCurrentTimestamp: firebase.firestore.FieldValue.serverTimestamp
 }
 export const auth = app.auth();
 export default app;

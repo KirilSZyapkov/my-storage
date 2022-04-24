@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FcFolder } from "react-icons/fc";
-import { FcFile } from "react-icons/fc";
+
 import ItemList from "./ItemList";
-import Breadcrumbs from "./Breadcrumbs";
+
 import { db } from "../firebase";
 
 function HomePage() {
@@ -26,7 +25,7 @@ function HomePage() {
 
                 setData(folder);
             } else {
-                const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
+                const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).orderBy('createdAt').get();
                 const respons = fetch.docs.map(doc => {
                     const folder = {
                         id: doc.id,
@@ -40,12 +39,6 @@ function HomePage() {
         }
         fetch();
     }, [currentFolderId, update]);
-
-    console.log(data);
-
-
-
-    console.log(currentFolderId);
 
     function openModal() {
         setOpen(true);
@@ -64,7 +57,8 @@ function HomePage() {
             parentFolder: currentFolderId || '/',
             children: [],
             path: [],
-            type: 'folder'
+            type: 'folder',
+            createdAT: db.getCurrentTimestamp()
         })
         setUpdate(!update);
         closeModal();
@@ -81,24 +75,8 @@ function HomePage() {
                 <div className="home-page-logo">M Y <span className='storage'>S T O R A G E</span></div>
                 <div onClick={() => logout()} className='home-page-topnav-logout-button'>L O G O U T</div>
             </div>
-            <div className="home-page-breadcrumb">
-                <div className="breadcrumb-container">
-                    <ul className="breadcrumb">
-                        <li className="breadcrumb-li"><Link to={'/'}>Root</Link></li>
-                        <Breadcrumbs text={"New Folderfsdihfidsfhiadshfidshfisd"} />
-                    </ul>
-                </div>
-                <div className="breadcrumb-buttons">
 
-                    <label className="breadcrumb-buttons-file">
-                        <FcFile />
-                        <input type="file" style={{ display: 'none' }} onChange={loadFile} />
-                    </label>
-                    <button onClick={openModal} className="breadcrumb-buttons-folder"><FcFolder /></button>
-                </div>
-            </div>
-            <hr />
-            <ItemList data={data} />
+            <ItemList openModal={openModal} loadFile={loadFile} data={data} />
             {open && <div className="modal">
                 <form onSubmit={createFolder} className="modal-form">
                     <label className="modal-form-label" htmlFor="folderName">Folder Name</label>
