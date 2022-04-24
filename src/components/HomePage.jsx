@@ -8,9 +8,22 @@ import Breadcrumbs from "./Breadcrumbs";
 import { db } from "../firebase";
 
 function HomePage() {
+    const [data, setData] = useState([]);
     const [open, setOpen] = useState(false);
     const { logout, currentUser } = useAuth();
     let { currentFolderId } = useParams();
+
+    useEffect(() => {
+        async function fetch() {
+            const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
+            console.log(fetch.docs);
+            // const respons = fetch.data();
+            // setData(respons);
+        }
+        fetch();
+    }, [currentFolderId]);
+
+    // console.log(data);
 
     if (!currentFolderId) {
         currentFolderId = null;
@@ -34,7 +47,7 @@ function HomePage() {
             _owner: currentUser?.uid,
             parentFolder: currentFolderId || '/',
             children: [],
-            path:[]
+            path: []
         })
         closeModal();
     };
@@ -58,7 +71,7 @@ function HomePage() {
                     </ul>
                 </div>
                 <div className="breadcrumb-buttons">
-                   
+
                     <label className="breadcrumb-buttons-file">
                         <FcFile />
                         <input type="file" style={{ display: 'none' }} onChange={loadFile} />
