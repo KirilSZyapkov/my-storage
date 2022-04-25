@@ -36,7 +36,7 @@ function ItemList({
             </div>
             <hr />
             {data?.length ?
-                <div className="item-container">
+                <div className="folder-container">
                     {data.map(f => {
                         if (f.type === 'folder') {
                             return (
@@ -54,7 +54,7 @@ function ItemList({
                     })}
                 </div>
                 :
-                <>{
+                <div className='file-container'>{
                     data.children?.map(f => {
                         if (f.type === 'folder') {
                             return (
@@ -70,7 +70,7 @@ function ItemList({
                             )
                         }
                     })
-                }</>
+                }</div>
 
             }
         </>

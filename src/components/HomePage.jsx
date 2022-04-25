@@ -26,7 +26,7 @@ function HomePage() {
 
                 setData(folder);
             } else {
-                const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
+                const fetch = await db.folders.where("parentFolder", "==", '/').where("_owner", "==", `${currentUser.uid}`).get();
                 const respons = fetch.docs.map(doc => {
                     const folder = {
                         id: doc.id,
@@ -41,8 +41,6 @@ function HomePage() {
         fetch();
     }, [currentFolderId, update]);
 
-    console.log(data);
-
     function openModal() {
         setOpen(true);
     };
@@ -56,7 +54,7 @@ function HomePage() {
         const folderName = target.folderName.value.trim();
         const newFolder = { folderName }
         if (currentFolderId) {
-            await updateFolder();
+            await updateFolder({ currentFolder: data, currentUser, newFolder });
         } else {
             await createNewFolder({ newFolder, currentFolderId, currentUser })
         }

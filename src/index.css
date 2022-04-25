@@ -220,13 +220,13 @@ ul.breadcrumb {
   margin-top: 12px;
 }
 
-/* .folder-container,
+.folder-container,
 .file-container{
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 22px;
   
-} */
+}
 
 /* Modal */
 
