@@ -8,9 +8,13 @@ import Breadcrumbs from "./Breadcrumbs";
 
 function ItemList({
     data,
-    openModal,
-    loadFile
+    openModal
 }) {
+
+    async function loadFile() {
+
+    };
+
 
     return (
         <>

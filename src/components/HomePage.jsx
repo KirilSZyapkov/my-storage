@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { createNewFolder, updateFolder } from '../services/folderContorler';
 
 import ItemList from "./ItemList";
 
@@ -25,7 +26,7 @@ function HomePage() {
 
                 setData(folder);
             } else {
-                const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).orderBy('createdAt').get();
+                const fetch = await db.folders.where("_owner", "==", `${currentUser.uid}`).get();
                 const respons = fetch.docs.map(doc => {
                     const folder = {
                         id: doc.id,
@@ -40,6 +41,8 @@ function HomePage() {
         fetch();
     }, [currentFolderId, update]);
 
+    console.log(data);
+
     function openModal() {
         setOpen(true);
     };
@@ -51,21 +54,14 @@ function HomePage() {
         e.preventDefault();
         const target = e.target;
         const folderName = target.folderName.value.trim();
-        await db.folders.add({
-            folderName,
-            _owner: currentUser?.uid,
-            parentFolder: currentFolderId || '/',
-            children: [],
-            path: [],
-            type: 'folder',
-            createdAT: db.getCurrentTimestamp()
-        })
+        const newFolder = { folderName }
+        if (currentFolderId) {
+            await updateFolder();
+        } else {
+            await createNewFolder({ newFolder, currentFolderId, currentUser })
+        }
         setUpdate(!update);
         closeModal();
-    };
-
-    async function loadFile() {
-
     };
 
 
@@ -76,7 +72,7 @@ function HomePage() {
                 <div onClick={() => logout()} className='home-page-topnav-logout-button'>L O G O U T</div>
             </div>
 
-            <ItemList openModal={openModal} loadFile={loadFile} data={data} />
+            <ItemList openModal={openModal} data={data} />
             {open && <div className="modal">
                 <form onSubmit={createFolder} className="modal-form">
                     <label className="modal-form-label" htmlFor="folderName">Folder Name</label>
