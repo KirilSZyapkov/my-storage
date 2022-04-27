@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { createNewFolder, updateFolder } from '../services/folderContorler';
+import { FcFolder } from "react-icons/fc";
+import { FcFile } from "react-icons/fc";
+import Breadcrumbs from "./Breadcrumbs";
 
 import ItemList from "./ItemList";
 
@@ -13,10 +16,11 @@ function HomePage() {
     const [update, setUpdate] = useState(true);
     const { logout, currentUser } = useAuth();
     let { currentFolderId } = useParams();
-    const [crumbs, setCrumbs] = useState([{ name: "Root", id: "/" }]);
+    const crumbs = useRef([{ name: "Root", id: "/" }]);
 
     useEffect(() => {
         async function fetch() {
+            let index = crumbs.current.findIndex(c => c.id === currentFolderId);
 
             if (currentFolderId) {
                 const fetch = await db.folders.doc(currentFolderId).get();
@@ -26,6 +30,16 @@ function HomePage() {
                 }
 
                 setData(folder);
+
+                const notIncluded = crumbs.current.some(c => c.id === currentFolderId);
+
+                if (notIncluded === false) {
+                    crumbs.current.push({ name: folder.folderName, id: currentFolderId });
+                } else {
+
+                    if (index !== 0) index++;
+                    crumbs.current.splice(index);
+                }
 
             } else {
                 const fetch = await db.folders.where("parentFolder", "==", '/').where("_owner", "==", `${currentUser.uid}`).get();
@@ -38,31 +52,12 @@ function HomePage() {
                 })
 
                 setData(respons);
+
+                crumbs.current.length = 1;
             }
         }
         fetch();
     }, [currentFolderId, update]);
-
-    useEffect(() => {
-        if (!currentFolderId) return;
-        if (data?.folderName) {
-
-            const notIncluded = crumbs?.some(c => c.id === currentFolderId);
-            if (notIncluded === false) {
-                setCrumbs(prevData => [...prevData, { name: data.folderName, id: currentFolderId }]);
-            } else {
-                const index = crumbs?.indexOf(c => c.id === currentFolderId);
-                setCrumbs(crumbs?.splice(index));
-            }
-            crumbs.current = crumbs.current
-        }
-
-
-    }, [data]);
-
-    console.log(data);
-
-    console.log(crumbs);
 
     function openModal() {
         setOpen(true);
@@ -83,8 +78,14 @@ function HomePage() {
         }
         setUpdate(!update);
         closeModal();
+
     };
 
+    async function loadFile() {
+
+    };
+
+    console.log(crumbs.current);
 
     return (
         <>
@@ -92,6 +93,22 @@ function HomePage() {
                 <div className="home-page-logo">M Y <span className='storage'>S T O R A G E</span></div>
                 <div onClick={() => logout()} className='home-page-topnav-logout-button'>L O G O U T</div>
             </div>
+            <div className="home-page-breadcrumb">
+                <div className="breadcrumb-container">
+                    <ul className="breadcrumb">
+                        {crumbs.current.map(crumb => <Breadcrumbs key={crumb.id} {...crumb} />)}
+                    </ul>
+                </div>
+                <div className="breadcrumb-buttons">
+
+                    <label className="breadcrumb-buttons-file">
+                        <FcFile />
+                        <input type="file" style={{ display: 'none' }} onChange={loadFile} />
+                    </label>
+                    <button onClick={openModal} className="breadcrumb-buttons-folder"><FcFolder /></button>
+                </div>
+            </div>
+            <hr />
 
             <ItemList openModal={openModal} data={data} />
             {open && <div className="modal">

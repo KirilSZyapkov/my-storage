@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom';
 
 function Breadcrumbs({
-    folderName,
-    folderId
+    name,
+    id
 }) {
     return (
-        <li className="breadcrumb-li"><span className='span-li'>/</span><Link to={'/'}>{"Home"}</Link></li>
+        <>
+            {name === "Root" ? 
+            <li className="breadcrumb-li"><span className='span-li'>/</span><Link to={`${id}`}>{name}</Link></li>:
+            <li className="breadcrumb-li"><span className='span-li'>/</span><Link to={`/folder/${id}`}>{name}</Link></li>
+        }
+        </>
     );
 }
 
