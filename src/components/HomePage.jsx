@@ -11,6 +11,7 @@ import { db, storage } from "../firebase";
 
 function HomePage() {
     const [data, setData] = useState([]);
+    const [files, setFiles] = useState([]);
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(true);
     const { logout, currentUser } = useAuth();
@@ -42,21 +43,33 @@ function HomePage() {
 
             } else {
                 const fetch = await db.folders.where("parentFolder", "==", '/').where("_owner", "==", `${currentUser.uid}`).get();
+                const fetchFiles = await db.files.where("_owner", "==", `${currentUser.uid}`).get();
                 const respons = fetch.docs.map(doc => {
                     const folder = {
                         id: doc.id,
                         ...doc.data()
                     }
                     return folder
+                });
+
+                const fetchFileRespons = fetchFiles.docs.map(f =>{
+                    const file = {
+                        id: f.id,
+                        ...f.data()
+                    };
+                    return file;
                 })
 
                 setData(respons);
+                setFiles(fetchFileRespons);
 
                 crumbs.current.length = 1;
             }
         }
         fetch();
     }, [currentFolderId, update]);
+
+    console.log(files);
 
     function openModal() {
         setOpen(true);
@@ -126,7 +139,7 @@ function HomePage() {
             </div>
             <hr />
 
-            <ItemList openModal={openModal} data={data} />
+            <ItemList openModal={openModal} data={data} files={files} />
             {open && <div className="modal">
                 <form onSubmit={createFolder} className="modal-form">
                     <label className="modal-form-label" htmlFor="folderName">Folder Name</label>
