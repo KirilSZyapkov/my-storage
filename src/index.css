@@ -209,7 +209,8 @@ ul.breadcrumb {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
- font-size: 21px;
+  font-size: 21px;
+  text-overflow: ellipsis;
 }
 
 .home-page-icons a{
@@ -225,7 +226,13 @@ ul.breadcrumb {
   display: flex;
   flex-wrap: wrap;
   gap: 22px;
-  
+}
+
+.folder-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 
 /* Modal */

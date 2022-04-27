@@ -25,7 +25,6 @@ async function updateFolder({ currentFolder, currentUser, newFolder }) {
     const children = currentFolder.children;
     children.push(child);
     await db.folders.doc(currentFolder.id).set({ children }, { merge: true })
-    console.log(children);
 }
 
 export {
