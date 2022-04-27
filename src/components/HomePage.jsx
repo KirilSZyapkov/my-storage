@@ -13,6 +13,7 @@ function HomePage() {
     const [update, setUpdate] = useState(true);
     const { logout, currentUser } = useAuth();
     let { currentFolderId } = useParams();
+    const [crumbs, setCrumbs] = useState([{ name: "Root", id: "/" }]);
 
     useEffect(() => {
         async function fetch() {
@@ -25,6 +26,7 @@ function HomePage() {
                 }
 
                 setData(folder);
+
             } else {
                 const fetch = await db.folders.where("parentFolder", "==", '/').where("_owner", "==", `${currentUser.uid}`).get();
                 const respons = fetch.docs.map(doc => {
@@ -40,6 +42,27 @@ function HomePage() {
         }
         fetch();
     }, [currentFolderId, update]);
+
+    useEffect(() => {
+        if (!currentFolderId) return;
+        if (data?.folderName) {
+
+            const notIncluded = crumbs?.some(c => c.id === currentFolderId);
+            if (notIncluded === false) {
+                setCrumbs(prevData => [...prevData, { name: data.folderName, id: currentFolderId }]);
+            } else {
+                const index = crumbs?.indexOf(c => c.id === currentFolderId);
+                setCrumbs(crumbs?.splice(index));
+            }
+            crumbs.current = crumbs.current
+        }
+
+
+    }, [data]);
+
+    console.log(data);
+
+    console.log(crumbs);
 
     function openModal() {
         setOpen(true);
