@@ -162,9 +162,10 @@ ul.breadcrumb {
   max-width: 50px;
 }
 
-.span-li {
+ul.breadcrumb li+li:before {
   padding: 8px;
   color: black;
+  content: "/\00a0";
 }
 
 .breadcrumb-li a {

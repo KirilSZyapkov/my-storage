@@ -7,8 +7,8 @@ function Breadcrumbs({
     return (
         <>
             {name === "Root" ? 
-            <li className="breadcrumb-li"><span className='span-li'>/</span><Link to={`${id}`}>{name}</Link></li>:
-            <li className="breadcrumb-li"><span className='span-li'>/</span><Link to={`/folder/${id}`}>{name}</Link></li>
+            <li className="breadcrumb-li"><span className='span-li'></span><Link to={`${id}`}>{name}</Link></li>:
+            <li className="breadcrumb-li"><span className='span-li'></span><Link to={`/folder/${id}`}>{name}</Link></li>
         }
         </>
     );
