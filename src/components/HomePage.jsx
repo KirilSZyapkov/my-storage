@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { createNewFolder, updateFolder } from '../services/folderContorler';
+import { createNewFolder, updateFolder, uploadFile, updateFolderFile } from '../services/folderContorler';
 import { FcFolder } from "react-icons/fc";
 import { FcFile } from "react-icons/fc";
 import Breadcrumbs from "./Breadcrumbs";
-
 import ItemList from "./ItemList";
 
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 
 function HomePage() {
     const [data, setData] = useState([]);
@@ -81,11 +80,28 @@ function HomePage() {
 
     };
 
-    async function loadFile() {
+    async function loadFile(e) {
+        const file = e.target.files[0];
+        if (file === null) return;
 
+        const filePath = file.name;
+
+        const uploadTask = storage.ref(`/files/${currentUser.uid}/${filePath}`).put(file);
+
+        uploadTask.on('state_changed', snapshot => {
+
+        }, () => {
+
+        }, () => {
+            uploadTask.snapshot.ref.getDownloadURL().then(url => {
+                if (currentFolderId) {
+                    updateFolderFile({ currentFolder: data, fileName: file.name, currentUser, url });
+                } else {
+                    uploadFile({ fileName: file.name, currentUser, url });
+                }
+            })
+        })
     };
-
-    console.log(crumbs.current);
 
     return (
         <>
