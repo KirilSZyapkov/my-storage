@@ -27,27 +27,29 @@ async function updateFolder({ currentFolder, currentUser, newFolder }) {
     await db.folders.doc(currentFolder.id).set({ children }, { merge: true })
 }
 
-async function uploadFile({ fileName, currentUser, url }) {
+async function uploadFile({ fileName, currentUser, url, currentFolder }) {
 
     const file = await db.files.add({
         fileName,
         _owner: currentUser.uid,
         type: 'file',
         createdAT: db.getCurrentTimestamp(),
-        url
+        url,
+        parentFolder: currentFolder.id || '/'
     });
 
     return {
         id: file.id,
         fileName,
         type: 'file',
-        url
+        url,
+        parentFolder: currentFolder.id
     }
 
 }
 
 async function updateFolderFile({ currentFolder, fileName, currentUser, url }) {
-    const child = await uploadFile({fileName, currentUser, url})
+    const child = await uploadFile({fileName, currentUser, url, currentFolder})
     const children = currentFolder.children;
     children.push(child);
     await db.folders.doc(currentFolder.id).set({ children }, { merge: true })
