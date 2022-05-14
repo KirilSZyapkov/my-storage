@@ -129,17 +129,25 @@ function HomePage() {
                 })
             })
         }, () => {
-
+            setUploadingFiles(prevUploadigFiles => {
+                return prevUploadigFiles.map(uploadFile => {
+                    if (uploadFile.id === id) {
+                        return { ...uploadFile, error: true }
+                    }
+                    return uploadFile;
+                })
+            });
         }, () => {
-            setUploadingFiles([]);
-            setUpdate(!update);
 
             uploadTask.snapshot.ref.getDownloadURL().then(url => {
                 if (currentFolderId) {
                     updateFolderFile({ currentFolder: data, fileName: file.name, currentUser, url });
-
+                    setUploadingFiles([]);
+                    setUpdate(!update);
                 } else {
                     uploadFile({ fileName: file.name, currentUser, url, currentFolder: data });
+                    setUploadingFiles([]);
+                    setUpdate(!update);
                 }
             })
 
