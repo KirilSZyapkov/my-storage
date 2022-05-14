@@ -90,7 +90,7 @@ function HomePage() {
         try {
 
             if (currentFolderId) {
-                await updateFolder({ currentFolder: data, currentUser, newFolder, data });
+                await updateFolder({ currentFolder: data, currentUser, newFolder });
             } else {
                 await createNewFolder({ newFolder, currentFolderId, currentUser, data })
             }
@@ -128,7 +128,7 @@ function HomePage() {
                     return uploadFile;
                 })
             })
-        }, () => {
+        }, (err) => {
             setUploadingFiles(prevUploadigFiles => {
                 return prevUploadigFiles.map(uploadFile => {
                     if (uploadFile.id === id) {
@@ -140,20 +140,21 @@ function HomePage() {
         }, () => {
 
             uploadTask.snapshot.ref.getDownloadURL().then(url => {
+
                 if (currentFolderId) {
                     updateFolderFile({ currentFolder: data, fileName: file.name, currentUser, url });
                     setUploadingFiles([]);
                     setUpdate(!update);
                 } else {
-                    uploadFile({ fileName: file.name, currentUser, url, currentFolder: data });
+                    uploadFile({ fileName: file.name, currentUser, url, currentFolder: data, files });
                     setUploadingFiles([]);
                     setUpdate(!update);
                 }
-            })
+
+            });
 
         });
     };
-
 
     return (
         <>
@@ -211,7 +212,7 @@ function HomePage() {
                         {uploadingFiles.map(file => (
                             <>
                                 <div key={file.id} className="snackbar">{file.name}</div>
-                                <div class="w3-light-grey">
+                                <div>
                                     <div>{Math.round(file.progress * 100)}</div>
                                 </div>
                             </>

@@ -31,8 +31,6 @@ export function AuthProvider({ children }) {
 
     }, [])
 
-    console.log(currentUser);
-
     const value = {
         currentUser,
         register,
