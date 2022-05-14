@@ -214,8 +214,12 @@ ul.breadcrumb li+li:before {
   text-overflow: ellipsis;
 }
 
-.home-page-icons a {
-  color: dodgerblue;
+.home-page-icons a,
+.home-page-icons p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(34, 36, 37);
 }
 
 .file-container {
@@ -231,13 +235,12 @@ ul.breadcrumb li+li:before {
 
 .folder-name,
 .file-name {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   margin: 0;
   margin-left: 10px;
   font-size: 18px;
 }
+
+
 
 /* Modal */
 
