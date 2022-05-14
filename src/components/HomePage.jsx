@@ -127,7 +127,8 @@ function HomePage() {
 
                     return uploadFile;
                 })
-            })
+            });
+
         }, (err) => {
             setUploadingFiles(prevUploadigFiles => {
                 return prevUploadigFiles.map(uploadFile => {
@@ -144,16 +145,15 @@ function HomePage() {
                 if (currentFolderId) {
                     updateFolderFile({ currentFolder: data, fileName: file.name, currentUser, url });
                     setUploadingFiles([]);
-                    setUpdate(!update);
                 } else {
                     uploadFile({ fileName: file.name, currentUser, url, currentFolder: data, files });
                     setUploadingFiles([]);
-                    setUpdate(!update);
                 }
 
-            });
+            }).then(() => setUpdate(!update));
 
         });
+
     };
 
     return (
