@@ -5,7 +5,7 @@ function err(errorMessage) {
     if (sorce.trim() === 'Firebase') {
         message = er.slice(10, er.indexOf('('));
     } else {
-        message = err.message;
+        message = er;
     }
 
     message = message.trim();

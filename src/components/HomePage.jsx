@@ -8,6 +8,7 @@ import { FcFile } from "react-icons/fc";
 import Breadcrumbs from "./Breadcrumbs";
 import ItemList from "./ItemList";
 import { v4 as uuidV4 } from "uuid";
+import errorHandler from "../services/errorHandler";
 
 import { db, storage } from "../firebase";
 
@@ -17,6 +18,7 @@ function HomePage() {
     const [open, setOpen] = useState(false);
     const [update, setUpdate] = useState(true);
     const [uploadingFiles, setUploadingFiles] = useState([]);
+    const [error, setError] = useState(null);
     const { logout, currentUser } = useAuth();
     let { currentFolderId } = useParams();
     const crumbs = useRef([{ name: "Root", id: "/" }]);
@@ -74,6 +76,7 @@ function HomePage() {
 
     function openModal() {
         setOpen(true);
+        setError(null);
     };
     function closeModal() {
         setOpen(false);
@@ -84,13 +87,18 @@ function HomePage() {
         const target = e.target;
         const folderName = target.folderName.value.trim();
         const newFolder = { folderName }
-        if (currentFolderId) {
-            await updateFolder({ currentFolder: data, currentUser, newFolder });
-        } else {
-            await createNewFolder({ newFolder, currentFolderId, currentUser })
+        try {
+
+            if (currentFolderId) {
+                await updateFolder({ currentFolder: data, currentUser, newFolder, data });
+            } else {
+                await createNewFolder({ newFolder, currentFolderId, currentUser, data })
+            }
+            setUpdate(!update);
+            closeModal();
+        } catch (err) {
+            setError(errorHandler(err));
         }
-        setUpdate(!update);
-        closeModal();
 
     };
 
@@ -141,6 +149,7 @@ function HomePage() {
 
     return (
         <>
+
             <div className="home-page-topnav">
                 <div className="home-page-logo">M Y <span className='storage'>S T O R A G E</span></div>
                 <div onClick={() => logout()} className='home-page-topnav-logout-button'>L O G O U T</div>
@@ -165,6 +174,9 @@ function HomePage() {
             <ItemList openModal={openModal} data={data} files={files} />
             {open && <div className="modal">
                 <form onSubmit={createFolder} className="modal-form">
+                    {error && <div className='register-error-container'>
+                        <h1 className='register-error-message'>{error}</h1>
+                    </div>}
                     <label className="modal-form-label" htmlFor="folderName">Folder Name</label>
                     <input type="text" name="folderName" required />
                     <hr />
@@ -175,7 +187,7 @@ function HomePage() {
                 </form>
 
             </div>}
-        
+
             {uploadingFiles.length > 0 &&
                 ReactDOM.createPortal(
                     <div style={{
